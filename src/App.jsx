@@ -1,31 +1,32 @@
 import styles from './App.module.css';
 import Axios from 'axios';
-import {use, useEffect, useState} from "react";
+import {useState} from "react";
 
 
 
 function App() {
 
-    const [name , setName ]= useState("")
-    const [information , setInformation] = useState({})
-    const fetchAge =()=>{
-
-        Axios.get(`https://api.agify.io/?name=${name}`).then((res)=> {
-            setInformation(res.data)
-        })
-
-    }
+    const [familyEx , setFamilyEx] = useState("")
+   const makeExcuse = (excuse) =>{
+       Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`).then((res)=>{
+           setFamilyEx(res.data[0].excuse)
+       })
 
 
+   }
 
 
     return (
         <div className={styles.App}>
+            <div>
+                <h1>generate excuse</h1>
 
-            <input placeholder="sogand" onChange={(event)=>setName(event.target.value)}/>
-            <button onClick={fetchAge}>senno begoo</button>
-            <h1>senet : {information.age}</h1>
-            <h1>esmet : {information.name}</h1>
+                <button onClick={() => makeExcuse("family")}>Family</button>
+                <button onClick={() => makeExcuse("office")}>Office</button>
+                <button onClick={() => makeExcuse("party")}>Party</button>
+
+                <h1>{familyEx}</h1>
+            </div>
         </div>
 
     );
