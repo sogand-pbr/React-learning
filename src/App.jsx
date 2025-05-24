@@ -5,29 +5,31 @@ import About from "./Pages/About.jsx";
 import Contact from "./Pages/Contant.jsx";
 import Profile from "./Pages/Profile.jsx";
 import Nav from "./Pages/Nav.jsx";
+import {useState , createContext} from "react";
 
 
 
 
+export const ProfileContext = createContext();
 function App() {
-
-
+    const [userName , setUserName]=useState("sarvinStyle")
     return (
         <div className={styles.App}>
+        <ProfileContext.Provider value={{userName , setUserName}}>
         <Router>
             <Nav/>
             <Routes>
-                <Route path="/" element={<Home/> }/>
+                <Route path="/" element={<Home /> }/>
                 <Route path="/about" element={<About/> }/>
+                <Route path="/profile" element={<Profile /> }/>
                 <Route path="/contact" element={<Contact/> }/>
-                <Route path="/profile/:name?" element={<Profile/> }/>
                 <Route path="/*" element={<div>NOT FOUND</div> }/>
             </Routes>
-            <div>foooooooooooooooter</div>
+            <div>footer</div>
         </Router>
 
 
-
+            </ProfileContext.Provider>
         </div>
 
     );
