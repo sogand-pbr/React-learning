@@ -1,32 +1,33 @@
 import styles from './App.module.css';
-import Axios from 'axios';
-import {useState} from "react";
+import {BrowserRouter as Router ,Routes ,Route , Link} from "react-router-dom"
+import Home from "./Pages/Home.jsx";
+import About from "./Pages/About.jsx";
+import Contact from "./Pages/Contant.jsx";
+import Profile from "./Pages/Profile.jsx";
+import Nav from "./Pages/Nav.jsx";
+
 
 
 
 function App() {
 
-    const [familyEx , setFamilyEx] = useState("")
-   const makeExcuse = (excuse) =>{
-       Axios.get(`https://excuser-three.vercel.app/v1/excuse/${excuse}/`).then((res)=>{
-           setFamilyEx(res.data[0].excuse)
-       })
-
-
-   }
-
 
     return (
         <div className={styles.App}>
-            <div>
-                <h1>generate excuse</h1>
+        <Router>
+            <Nav/>
+            <Routes>
+                <Route path="/" element={<Home/> }/>
+                <Route path="/about" element={<About/> }/>
+                <Route path="/contact" element={<Contact/> }/>
+                <Route path="/profile/:name?" element={<Profile/> }/>
+                <Route path="/*" element={<div>NOT FOUND</div> }/>
+            </Routes>
+            <div>foooooooooooooooter</div>
+        </Router>
 
-                <button onClick={() => makeExcuse("family")}>Family</button>
-                <button onClick={() => makeExcuse("office")}>Office</button>
-                <button onClick={() => makeExcuse("party")}>Party</button>
 
-                <h1>{familyEx}</h1>
-            </div>
+
         </div>
 
     );
