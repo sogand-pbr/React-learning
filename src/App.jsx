@@ -1,29 +1,31 @@
 import styles from './App.module.css';
 import Axios from 'axios';
-import {useEffect, useState} from "react";
+import {use, useEffect, useState} from "react";
+
 
 
 function App() {
-    const [catfact, setCatfacts] = useState("")
 
-    useEffect(() => {
-        fetchFact()
+    const [name , setName ]= useState("")
+    const [information , setInformation] = useState({})
+    const fetchAge =()=>{
 
-    }, [])
+        Axios.get(`https://api.agify.io/?name=${name}`).then((res)=> {
+            setInformation(res.data)
+        })
 
-    const fetchFact = () => {
-
-        Axios.get("https://catfact.ninja/fact")
-            .then((res) => {
-                setCatfacts(res.data.fact)
-
-            })
     }
+
+
+
+
     return (
         <div className={styles.App}>
 
-            <button onClick={fetchFact}>fetch cat</button>
-            <p>{catfact}</p>
+            <input placeholder="sogand" onChange={(event)=>setName(event.target.value)}/>
+            <button onClick={fetchAge}>senno begoo</button>
+            <h1>senet : {information.age}</h1>
+            <h1>esmet : {information.name}</h1>
         </div>
 
     );
