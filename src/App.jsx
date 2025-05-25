@@ -1,12 +1,17 @@
 import styles from './App.module.css';
+import {useState} from "react";
+import {useToggle} from "./useToggle.jsx";
 
-import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
-import SubmiForm from "./Pages/SubmiForm.jsx";
 
 
 function App() {
-    return (<div className={styles.App}>
-            <SubmiForm/>
+
+    const [isVisible , toggle]= useToggle(false)
+
+    return (
+        <div className={styles.App}>
+            <button onClick={toggle}> {isVisible ? "show" : "hide" }</button>
+            {isVisible && <h1>"my hidden text"</h1>}
 
         </div>
 
